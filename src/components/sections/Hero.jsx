@@ -38,7 +38,7 @@ import ButtonModal from "../ButtonModal";
 export default function Hero() {
 
     return (
-        <section className=" flex flex-col gap-4 ">
+        <section className=" flex flex-col gap-4 py-10">
 
             {/* Top cards */}
             <div className="flex flex-col md:flex-row gap-4">
@@ -108,10 +108,11 @@ export default function Hero() {
                 <div className="bg-gray-100/20 rounded-2xl border-2 border-gray-400  flex-1">
                     <ResentEnqury />
                 </div>
-                <div className="bg-red-300 rounded-2xl  flex-1"></div>
+                <div className="bg-gray-100 rounded-2xl  flex-1">
+                    <ResentEnqury />
+                </div>
             </div>
 
-            <div className="bg-red-300 rounded-2xl h-80"></div>
 
         </section>
 

@@ -9,13 +9,17 @@ export default function PatientHero() {
         <section className=" flex flex-col gap-4 ">
 
             {/* Top cards */}
-            <div className="flex flex-col md:flex-row gap-4">
-                <div className="flex-1 bg-violet-400 rounded-2xl h-40 md:h-56">
-                    <p className="text-[200px] font-bold leading-none">Patient</p>
+            <div className="flex flex-col md:flex-row gap-4 ">
+                <div className="flex-1 bg-blue-300/40 rounded-2xl h-40 md:h-56 px-24">
+                    <p className="text-[200px] font-bold leading-none">Patient's</p>
                 </div>
-                <div className="flex-1 bg-amber-500 rounded-2xl h-40 md:h-56">
+                <div className="flex-1  flex items-start justify-end pr-2 pt-2 rounded-2xl h-40 md:h-56">
                     <ButtonModal choice={'patienForm'}> Add Patient </ButtonModal>
                 </div>
+            </div>
+
+            <div className="flex items-center justify-center">
+                <hr className="w-[90%] border-gray-300" />
             </div>
 
             {/* Main content */}

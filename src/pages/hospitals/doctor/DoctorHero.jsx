@@ -12,32 +12,6 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-export default function DoctorHero() {
-
-    return (
-        <section className=" flex flex-col gap-4 ">
-
-            {/* Top cards */}
-            <div className="flex flex-col md:flex-row gap-4">
-                <div className="flex-1 bg-violet-400 rounded-2xl h-40 md:h-56">
-                    <p className="text-[200px] font-bold leading-none">Doctor</p>
-                </div>
-                <div className="flex-1 bg-amber-200 rounded-2xl h-40 md:h-56">
-                    <ButtonModal choice={'doctorForm'}> Add Doctor </ButtonModal>
-                </div>
-            </div>
-
-            {/* Main content */}
-            <div className=" rounded-2xl h-103.75 flex-1">
-                <DoctorsList />
-            </div>
-
-        </section>
-
-    )
-}
-
-
 
 const doctors = [
     {
@@ -209,6 +183,40 @@ const doctors = [
         image: "https://i.pravatar.cc/200?img=49",
     },
 ];
+
+
+export default function DoctorHero() {
+
+    return (
+        <section className=" flex flex-col gap-4 ">
+
+            {/* Top cards */}
+            <div className="flex flex-col md:flex-row gap-4 ">
+                <div className="flex-1 rounded-2xl h-40 md:h-56">
+                    <p className="text-[200px] font-bold leading-none">Doctor's</p>
+                </div>
+                <div className="flex-1 flex flex-col items-end pr-2 pt-2 rounded-2xl ">
+                    <ButtonModal choice={'doctorForm'}> Add Doctor </ButtonModal>
+                    <p className="text-lg font-semibold pr-2">{doctors.length} : Doctor's</p>
+                </div>
+            </div>
+
+            <div className="flex items-center justify-center mb-5">
+                <hr className="w-[90%] border-gray-300" />
+            </div>
+
+            {/* Main content */}
+            <div className=" rounded-2xl h-103.75 flex-1">
+                <DoctorsList />
+            </div>
+
+        </section>
+
+    )
+}
+
+
+
 
 export function DoctorsList() {
     const [doctorsList, setDoctorsList] = useState(doctors)

@@ -1,19 +1,27 @@
 
-import ButtonModal from "../ButtonModal";
-
-
 
 export default function Test() {
-    
 
     return (
-        <div className="bg-white rounded-xl p-4">
-            
-            <ButtonModal choice={'patienForm'}> open </ButtonModal>
-            
+        <div className="flex items-center justify-center h-screen">
+
+            <Sample/>
+
         </div>
-    );
+    )
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

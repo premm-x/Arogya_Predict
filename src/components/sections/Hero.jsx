@@ -1,127 +1,55 @@
 import doctor3d from "@/assets/doctor3d.png";
 import { useState } from "react";
-
-//---table
-import {
-    flexRender,
-    getCoreRowModel,
-    getFilteredRowModel,
-    getPaginationRowModel,
-    getSortedRowModel,
-    useReactTable,
-} from "@tanstack/react-table"
-
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Input } from "@/components/ui/input"
-import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
 import { Link } from "react-router-dom";
-import ButtonModal from "../ButtonModal";
-//---table
+import { Dashboard2 } from "./Dashbaord2";
 
-
-
+// ---------------- HERO ----------------
 export default function Hero() {
-
     return (
-        <section className=" flex flex-col gap-4 py-10">
+        <section className=" min-h-screen p-6 flex flex-col gap-6">
 
-            {/* Top cards */}
-            <div className="flex flex-col md:flex-row gap-4">
-                <div className="w-[30%] h-40 md:h-56 border-[3px] border-cyan-700/80 flex rounded-2xl ">
-                    <div className="flex flex-col items-center justify-evenly px-1 pb-2">
-                        <div>
-                            <h1 className="text-lg font-medium">Admin : </h1>
-                            <h1 className="text-2xl font-bold">Admin name</h1>
-                        </div>
-                        <p className="text-center text-gray-700">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
+            {/* Top Section */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
 
-                    <img src={doctor3d} alt="Doctor" />
-                </div>
-
-                <div className="w-[70%] flex flex-col md:flex-row gap-4">
-                    <div className="w-[65%] relative border-[0.5px] border-cyan-50 rounded-2xl h-40 md:h-56 flex items-center overflow-hidden">
-
-                        <div className="absolute inset-0 bg-linear-to-r opacity-[0.3] from-teal-600 via-cyan-600 to-blue-800 blur-2xl scale-110"></div>
-
-                        <div className="border-r-2 border-teal-700 h-[70%] flex-1 flex flex-col items-center justify-center gap-5 pb-5">
-                            <h1 className="text-[18px] font-semibold capitalize text-center leading-none">total patient / <br /> capacity</h1>
-                            <p className="text-center text-4xl text-gray-900 font-extrabold leading-none">58/120</p>
-                        </div>
-
-                        <div className="border-r-2 border-teal-700 h-[70%] flex-1 flex flex-col items-center justify-center gap-5 pb-5">
-                            <h1 className="text-[18px] font-semibold capitalize text-center leading-none">total doctor's</h1>
-                            <p className="text-center text-[40px] text-gray-900 font-extrabold leading-none">32</p>
-                        </div>
-
-                        <div className="border-r-2 border-teal-700 h-[70%] flex-1 flex flex-col items-center justify-center gap-5 pb-5">
-                            <h1 className="text-[18px] font-semibold capitalize text-center leading-none">total stuff</h1>
-                            <p className="text-center text-[40px] text-gray-900 font-extrabold leading-none">48</p>
-                        </div>
-
-                        <div className=" h-[70%] flex-1 flex flex-col items-center justify-center gap-5 pb-5">
-                            <h1 className="text-[18px] font-semibold capitalize text-center leading-none">admin's</h1>
-                            <p className="text-center text-[40px] text-gray-900 font-extrabold leading-none">5</p>
-                        </div>
-                    </div>
-
-                    <div className="w-[35%] bg-teal-300/40 rounded-2xl h-40 md:h-56 flex flex-col overflow-hidden px-4">
-
-                        <div className="flex-1 border-b-2 border-gray-900 flex items-center justify-center gap-5 ">
-                            <h1 className="text-[18px] font-semibold capitalize text-left leading-none ">today's Appointments / <br /> completed</h1>
-                            <p className="text-center text-xl text-gray-900 font-bold leading-none">:</p>
-                            <p className="text-center text-4xl text-gray-900 font-extrabold leading-none">120/60</p>
-                        </div>
-
-                        <div className="flex-1 flex items-center justify-center gap-6">
-                            <h1 className="text-[18px] font-semibold capitalize text-left leading-none  ">today's enquiries </h1>
-                            <p className="text-center text-xl text-gray-900 font-bold leading-none">:</p>
-                            <p className="text-center text-4xl text-gray-900 font-extrabold leading-none">49</p>
-                        </div>
-
+                {/* Admin Card */}
+                <div className="bg-white rounded-2xl shadow p-4 flex items-center gap-4 border-t-4 border-black">
+                    <img src={doctor3d} className="w-16 h-16 rounded-full object-cover" />
+                    <div>
+                        <h1 className="font-semibold text-lg">Admin Name</h1>
+                        <p className="text-sm text-gray-500">Admin</p>
                     </div>
                 </div>
+
+                {/* KPI Cards */}
+                {[
+                    { title: "Patients", value: "58/120", color: "border-blue-500" },
+                    { title: "Doctors", value: "32", color: "border-green-500" },
+                    { title: "Staff", value: "48", color: "border-orange-500" },
+                ].map((item, i) => (
+                    <div key={i} className={`bg-white rounded-2xl shadow p-4 border-t-4 ${item.color}`}>
+                        <p className="text-gray-500 text-sm">{item.title}</p>
+                        <h1 className="text-2xl font-bold">{item.value}</h1>
+                    </div>
+                ))}
             </div>
 
-            {/* Main content */}
-            <div className="border-2 border-gray-400 rounded-2xl h-103.75">
+            {/* Appointments */}
+            <div className="bg-white rounded-2xl shadow p-6">
                 <ResentAppointment />
             </div>
 
-            {/* Extra sections */}
-            <div className="flex  gap-4">
-                <div className="bg-gray-100/20 rounded-2xl border-2 border-gray-400  flex-1">
-                    <ResentEnqury />
-                </div>
-                <div className="bg-gray-100 rounded-2xl  flex-1">
-                    <ResentEnqury />
-                </div>
+            {/* Enquiries */}
+            <div className="bg-white rounded-2xl shadow p-6">
+                <ResentEnqury />
             </div>
 
+            <Dashboard2/>
 
         </section>
-
-    )
+    );
 }
 
-
-
-
+// ---------------- APPOINTMENTS ----------------
 const initialAppointments = [
     {
         id: 1,
@@ -161,13 +89,7 @@ const initialAppointments = [
     },
 ];
 
-const statusStyles = {
-    Accepted: "text-green-600",
-    Rejected: "text-red-600",
-    Pending: "text-yellow-500",
-};
-
-export function ResentAppointment() {
+function ResentAppointment() {
     const [appointments, setAppointments] = useState(initialAppointments);
     const [rejectModal, setRejectModal] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
@@ -188,19 +110,6 @@ export function ResentAppointment() {
     };
 
     const submitRejection = () => {
-        if (!message.trim()) return; // safety check
-
-        const rejectionPayload = {
-            id: selectedItem.id,
-            patient: selectedItem.patient,
-            doctor: selectedItem.doctor,
-            department: selectedItem.department,
-            date: selectedItem.date,
-            message: message,
-        };
-
-        console.log("Rejected data:", rejectionPayload);
-
         setAppointments(prev =>
             prev.map(a =>
                 a.id === selectedItem.id
@@ -208,7 +117,6 @@ export function ResentAppointment() {
                     : a
             )
         );
-
         closeModal();
     };
 
@@ -219,15 +127,22 @@ export function ResentAppointment() {
     };
 
     return (
-        <div className="bg-white rounded-xl p-6 w-full overflow-x-auto">
-            <h2 className="font-semibold text-lg mb-4">
-                Appointments Request's
-            </h2>
+        <div className="w-full">
 
+            {/* Header */}
+            <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-semibold">Appointments</h2>
+                <input
+                    placeholder="Search..."
+                    className="border px-3 py-1 rounded-lg text-sm"
+                />
+            </div>
+
+            {/* Table */}
             <table className="w-full text-sm">
-                <thead className="text-left text-gray-500 border-b">
+                <thead className="bg-gray-100 text-gray-600">
                     <tr>
-                        <th className="py-2">Patient</th>
+                        <th className="py-3 px-2 text-left">Patient</th>
                         <th>Date</th>
                         <th>Doctor</th>
                         <th>Department</th>
@@ -238,8 +153,8 @@ export function ResentAppointment() {
 
                 <tbody>
                     {appointments.map(item => (
-                        <tr key={item.id} className="border-b last:border-none">
-                            <td className="py-3">{item.patient}</td>
+                        <tr key={item.id} className="border-b hover:bg-gray-50">
+                            <td className="py-3 px-2">{item.patient}</td>
                             <td>{item.date}</td>
                             <td>{item.doctor}</td>
                             <td>{item.department}</td>
@@ -250,18 +165,28 @@ export function ResentAppointment() {
                                     onChange={e =>
                                         handleStatusChange(item, e.target.value)
                                     }
-                                    className={`bg-transparent font-medium outline-none ${statusStyles[item.status]}`}
+                                    className={`px-2 py-1 rounded-full text-xs font-medium 
+                                    ${
+                                        item.status === "Accepted" && "bg-green-100 text-green-700"
+                                    }
+                                    ${
+                                        item.status === "Rejected" && "bg-red-100 text-red-700"
+                                    }
+                                    ${
+                                        item.status === "Pending" && "bg-yellow-100 text-yellow-700"
+                                    }`}
                                 >
-                                    <option value="Accepted">Accepted</option>
-                                    <option value="Rejected">Rejected</option>
-                                    <option value="Pending">Pending</option>
+                                    <option>Accepted</option>
+                                    <option>Rejected</option>
+                                    <option>Pending</option>
                                 </select>
                             </td>
 
                             <td>
                                 <span
-                                    className={`h-3 w-3 inline-block rounded-full ${item.visited ? "bg-green-500" : "bg-red-500"
-                                        }`}
+                                    className={`h-3 w-3 inline-block rounded-full ${
+                                        item.visited ? "bg-green-500" : "bg-red-500"
+                                    }`}
                                 />
                             </td>
                         </tr>
@@ -269,6 +194,7 @@ export function ResentAppointment() {
                 </tbody>
             </table>
 
+            {/* Modal */}
             {rejectModal && (
                 <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
                     <div className="bg-white rounded-lg p-5 w-96">
@@ -292,12 +218,8 @@ export function ResentAppointment() {
                             </button>
 
                             <button
-                                onClick={() => {
-                                    if (!message.trim()) return;
-                                    submitRejection();
-                                }}
-                                className="px-3 py-1 bg-red-600 text-white rounded disabled:opacity-50"
-                                disabled={!message.trim()}
+                                onClick={submitRejection}
+                                className="px-3 py-1 bg-red-600 text-white rounded"
                             >
                                 Submit
                             </button>
@@ -305,118 +227,52 @@ export function ResentAppointment() {
                     </div>
                 </div>
             )}
-
         </div>
     );
 }
 
-
+// ---------------- ENQUIRIES ----------------
 const enquriData = [
-    { id: 1, timing: "12:02 AM", name: "ravi", message: "hi this is enquri" },
-    { id: 2, timing: "12:02 AM", name: "ravi", message: "hi this is enquri" },
-    { id: 3, timing: "12:02 AM", name: "ravi", message: "hi this is enquri" },
-    { id: 4, timing: "12:02 AM", name: "ravi", message: "hi this is enquri" },
-    { id: 5, timing: "12:02 AM", name: "ravi", message: "hi this is enquri" },
-]
-const EnquriColumns = [
-    {
-        accessorKey: "id",
-        header: "sr no.",
-        cell: ({ row }) => `${row.getValue("id")}`,
-    },
-    {
-        accessorKey: "timing",
-        header: "Timing",
-        cell: ({ row }) => `${row.getValue("timing")}`,
-    },
-    {
-        accessorKey: "name",
-        header: "Name",
-        cell: ({ row }) => `${row.getValue("name")}`,
-    },
-    {
-        accessorKey: "message",
-        header: "Message",
-        cell: ({ row }) => `${row.getValue("message")}`,
-    },
-]
+    { id: 1, timing: "12:02 AM", name: "ravi", message: "hi this is enquiry" },
+    { id: 2, timing: "12:02 AM", name: "ravi", message: "hi this is enquiry" },
+    { id: 3, timing: "12:02 AM", name: "ravi", message: "hi this is enquiry" },
+    { id: 4, timing: "12:02 AM", name: "ravi", message: "hi this is enquiry" },
+];
 
-export function ResentEnqury() {
-    const [data, setData] = useState(enquriData)
-    const [columnFilters, setColumnFilters] = useState([])
-    const [columnVisibility, setColumnVisibility] = useState({})
-    const [sorting, setSorting] = useState([])
-
-    const table = useReactTable({
-        data,
-        columns: EnquriColumns,
-        state: {
-            sorting,
-            columnFilters,
-            columnVisibility,
-        },
-        onSortingChange: setSorting,
-        onColumnFiltersChange: setColumnFilters,
-        onColumnVisibilityChange: setColumnVisibility,
-        getCoreRowModel: getCoreRowModel(),
-        getFilteredRowModel: getFilteredRowModel(),
-        getSortedRowModel: getSortedRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
-    })
-
+function ResentEnqury() {
     return (
-        <div className="w-full p-6">
+        <div className="w-full">
 
-            <div className="flex items-center justify-between px-2 ">
-                <h1 className="text-xl font-bold underline mb-5">Resent Equries</h1>
-                <Link to={"/enqury"} className="text-xl font-bold underline mb-5">See list /</Link>
+            <div className="flex justify-between items-center mb-4">
+                <h1 className="text-xl font-semibold">Recent Enquiries</h1>
+                <Link to={"/enqury"} className="text-blue-600 text-sm">
+                    View All →
+                </Link>
             </div>
 
-            {/* Table */}
-            <div className="rounded-md border">
-                <Table>
-                    <TableHeader className={"bg-gray-200"}>
-                        {table.getHeaderGroups().map(headerGroup => (
-                            <TableRow key={headerGroup.id}>
-                                {headerGroup.headers.map(header => (
-                                    <TableHead key={header.id}>
-                                        {header.isPlaceholder
-                                            ? null
-                                            : flexRender(
-                                                header.column.columnDef.header,
-                                                header.getContext()
-                                            )}
-                                    </TableHead>
-                                ))}
-                            </TableRow>
-                        ))}
-                    </TableHeader>
+            <table className="w-full text-sm">
+                <thead className="bg-gray-100 text-gray-600">
+                    <tr>
+                        <th className="py-2 text-left">#</th>
+                        <th>Time</th>
+                        <th>Name</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
 
-                    <TableBody className={""}>
-                        {table.getRowModel().rows.length ? (
-                            table.getRowModel().rows.map(row => (
-                                <TableRow key={row.id}>
-                                    {row.getVisibleCells().map(cell => (
-                                        <TableCell key={cell.id} className={"py-3.5 font-medium"}>
-                                            {flexRender(
-                                                cell.column.columnDef.cell,
-                                                cell.getContext()
-                                            )}
-                                        </TableCell>
-                                    ))}
-                                </TableRow>
-                            ))
-                        ) : (
-                            <TableRow>
-                                <TableCell colSpan={columns.length} className="text-center">
-                                    No results.
-                                </TableCell>
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-            </div>
-
+                <tbody>
+                    {enquriData.map(item => (
+                        <tr key={item.id} className="border-b hover:bg-gray-50">
+                            <td className="py-2">{item.id}</td>
+                            <td>{item.timing}</td>
+                            <td>{item.name}</td>
+                            <td className="truncate max-w-[200px]">
+                                {item.message}
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
-    )
+    );
 }

@@ -5,7 +5,7 @@ import AdminHero from "./AdminHero";
 export default function AdminPage() {
 
     return (
-        <div className="">
+        <div className="p-4">
 
             <AdminHero />
 

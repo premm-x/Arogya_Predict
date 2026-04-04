@@ -51,14 +51,14 @@ const doctors = [
 export default function Equipt() {
 
     return (
-        <div className="">
+        <div className="p-4">
 
             <section className=" flex flex-col gap-4 ">
 
                 {/* Top cards */}
                 <div className="flex flex-col md:flex-row gap-4 ">
-                    <div className="flex-1 rounded-2xl h-40 md:h-56">
-                        <p className="text-[170px] font-bold leading-none">Equiptment's</p>
+                    <div className="flex-1 rounded-2xl h-20 md:h-30">
+                        <p className="text-[100px] font-bold leading-none">Equiptment's</p>
                     </div>
                     <div className=" flex-1 flex flex-col items-end pr-2 pt-2 rounded-2xl ">
                         <ButtonModal choice={'doctorForm'}> Add Equiptment </ButtonModal>
@@ -129,8 +129,8 @@ export function DoctorsList() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-18 ">
             {
 
-                doctorsList.map((doc) => (
-                    <Drawer key={side} direction={side === "bottom" ? undefined : side}>
+                doctorsList.map((doc, i) => (
+                    <Drawer key={i} direction={side === "bottom" ? undefined : side}>
 
                         <DrawerTrigger asChild>
 

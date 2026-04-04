@@ -42,11 +42,11 @@ export default function AdminHero() {
 
             {/* Top cards */}
             <div className="flex flex-col md:flex-row gap-4">
-                <div className="flex-1 flex items-center justify-center bg-violet-400/40 rounded-2xl h-40 md:h-56">
-                    <p className="text-[200px] font-bold leading-none">Admin</p>
+                <div className="flex-1 flex items-center justify-center bg-violet-400/40 rounded-2xl h-30 md:h-40">
+                    <p className="text-[150px] font-bold leading-none">Admin</p>
                 </div>
                 <div className="flex-1 flex items-center justify-center gap-20 border-4 border-amber-400/30 rounded-2xl">
-                    <p className="text-[90px] font-bold leading-none text-left">Total <br /> Admin's</p>
+                    <p className="text-[60px] font-bold leading-none text-left">Total <br /> Admin's</p>
                     <p className="text-[80px] font-bold leading-none">:</p>
                     <p className="text-[100px] font-bold leading-none">{admins.length}</p>
                 </div>
@@ -68,7 +68,7 @@ export default function AdminHero() {
 
 export function AdminFeatures({ admins, setAdmins }) {
 
-    const [mode, setMode] = useState("none"); // none | view | add
+    const [mode, setMode] = useState("view"); // none | view | add
     const [login, setLogin] = useState({ username: "", password: "" });
     const [showModal, setShowModal] = useState(false);
 
@@ -114,7 +114,7 @@ export function AdminFeatures({ admins, setAdmins }) {
         <div className="p-6 space-y-6 flex flex-col items-center justify-center">
             {/* SWITCH */}
             <div className="inline-flex bg-gray-200 rounded-full p-1 gap-5">
-                <SwitchBtn label="None" active={mode === "none"} onClick={() => setMode("none")} />
+                {/* <SwitchBtn label="None" active={mode === "none"} onClick={() => setMode("none")} /> */}
                 <SwitchBtn label="View Admin's" active={mode === "view"} onClick={() => setMode("view")} />
                 <SwitchBtn label="Add New Admin" active={mode === "add"} onClick={() => setMode("add")} />
             </div>

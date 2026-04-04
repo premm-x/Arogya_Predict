@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-
+import { UserPlus, Pencil, Trash2, X } from "lucide-react";
 
 const doctors = [
     {
@@ -191,13 +191,13 @@ export default function DoctorHero() {
         <section className=" flex flex-col gap-4 ">
 
             {/* Top cards */}
-            <div className="flex flex-col md:flex-row gap-4 ">
-                <div className="flex-1 rounded-2xl h-40 md:h-56">
-                    <p className="text-[200px] font-bold leading-none">Doctor's</p>
+            <div className="flex flex-col md:flex-row gap-4 px-20">
+                <div className="flex-1 rounded-2xl h-40 md:h-20">
+                    <p className="text-[80px] font-bold leading-none ">Doctor's</p>
                 </div>
                 <div className="flex-1 flex flex-col items-end pr-2 pt-2 rounded-2xl ">
                     <ButtonModal choice={'doctorForm'}> Add Doctor </ButtonModal>
-                    <p className="text-lg font-semibold pr-2">{doctors.length} : Doctor's</p>
+                    <p className="text-lg font-semibold pr-2 mt-2">{doctors.length} : Doctor's</p>
                 </div>
             </div>
 
@@ -209,6 +209,12 @@ export default function DoctorHero() {
             <div className=" rounded-2xl h-103.75 flex-1">
                 <DoctorsList />
             </div>
+
+            <footer className="mt-10 p-10">
+                <p className="text-gray-300 text-[100px] font-bold leading-22" >
+                    People's who <br /> save life's
+                </p>
+            </footer>
 
         </section>
 
@@ -222,6 +228,7 @@ export function DoctorsList() {
     const [doctorsList, setDoctorsList] = useState(doctors)
     const [selectedDoctor, setSelectedDoctor] = useState(null)
     const [editDoctor, setEditDoctor] = useState(null)
+
 
     const handleDelete = (e, id) => {
         e.stopPropagation()
@@ -252,66 +259,161 @@ export function DoctorsList() {
     return (
         <>
             {/* DOCTOR CARDS */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {doctorsList.map(doc => (
-                    <div
-                        key={doc.id}
-                        onClick={() => setSelectedDoctor(doc)}
-                        className="bg-white rounded-xl p-4 shadow hover:shadow-lg cursor-pointer relative"
-                    >
-                        {/* ACTIONS */}
-                        <div className="absolute top-3 right-3 flex gap-2">
-                            <button
-                                onClick={(e) => handleEditOpen(e, doc)}
-                                className="text-xs px-2 py-1 bg-blue-100 text-blue-600 rounded"
-                            >
-                                Edit
-                            </button>
-                            <button
-                                onClick={(e) => handleDelete(e, doc.id)}
-                                className="text-xs px-2 py-1 bg-red-100 text-red-600 rounded"
-                            >
-                                Delete
-                            </button>
-                        </div>
+                    <div key={doc.id}
+                        className="relative w-full max-w-md bg-white rounded-2xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition-all">
 
-                        <div className="flex justify-center">
+                        {/* Top Section */}
+                        <div className="flex items-center gap-4">
                             <img
                                 src={doc.image}
                                 alt={doc.name}
-                                className="w-28 h-28 rounded-full object-cover"
+                                className="w-14 h-14 rounded-full object-cover"
                             />
+
+                            <div className="flex-1">
+                                <h2 className="text-lg font-semibold text-slate-800">
+                                    {doc.name}
+                                </h2>
+                                <p className="text-sm text-slate-500">
+                                    {doc.department}
+                                </p>
+                                <p className="text-xs text-slate-400">
+                                    ID: {doc.nic}
+                                </p>
+                            </div>
+
+                            <span className="bg-green-100 text-green-600 text-xs font-semibold px-3 py-1 rounded-full">
+                                Available
+                            </span>
+
                         </div>
 
-                        <div className="mt-4 text-sm space-y-1">
-                            <p className="font-semibold">{doc.name}</p>
-                            <p><b>Email:</b> {doc.email}</p>
-                            <p><b>Phone:</b> {doc.phone}</p>
-                            <p><b>Department:</b> {doc.department}</p>
+                        {/* Stats */}
+                        <div className="flex justify-around mt-5 text-center">
+                            <div>
+                                <p className="text-lg font-bold text-blue-600">{doc.experience}+</p>
+                                <p className="text-xs text-slate-500">Experience</p>
+                            </div>
+                            <div>
+                                <p className="text-lg font-bold text-green-600">4.8</p>
+                                <p className="text-xs text-slate-500">Rating</p>
+                            </div>
+                            <div>
+                                <p className="text-lg font-bold text-orange-500">320+</p>
+                                <p className="text-xs text-slate-500">Patients</p>
+                            </div>
+
                         </div>
+
+                        {/* Actions */}
+                        <div className="flex items-center gap-3 mt-5">
+                            <button
+                                onClick={() => setSelectedDoctor(doc)}
+                                className="flex-1 cursor-pointer bg-linear-to-r from-blue-600 to-indigo-600 text-white py-2.5 rounded-xl text-sm font-semibold hover:opacity-90 transition">
+                                View Profile
+                            </button>
+
+                            <div className="flex gap-2">
+                                <button onClick={(e) => handleEditOpen(e, doc)}
+                                    className="p-2 rounded-lg text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition">
+                                    <Pencil size={16} />
+                                </button>
+                                <button onClick={(e) => handleDelete(e, doc.id)}
+                                    className="p-2 rounded-lg text-slate-400 hover:bg-red-50 hover:text-red-600 transition">
+                                    <Trash2 size={16} />
+                                </button>
+                            </div>
+
+                        </div>
+
                     </div>
                 ))}
             </div>
 
             {/* VIEW MODAL */}
             {selectedDoctor && (
-                <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
-                    <div className="bg-white w-[90%] max-w-4xl rounded-xl p-6 relative">
+                <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+
+                    {/* Modal */}
+                    <div className="bg-white w-full max-w-lg rounded-2xl shadow-xl p-6 relative animate-fadeIn">
+
+                        {/* Close */}
                         <button
                             onClick={() => setSelectedDoctor(null)}
-                            className="absolute top-3 right-3 text-xl"
+                            className="absolute top-4 right-4 text-slate-400 hover:text-red-500 cursor-pointer"
                         >
-                            ✕
+                            <X size={20} />
                         </button>
 
-                        <div className="grid grid-cols-2 gap-4 text-sm">
-                            {Object.entries(selectedDoctor).map(([k, v]) => (
-                                <p key={k}><b>{k}:</b> {v}</p>
-                            ))}
+                        {/* Header */}
+                        <div className="flex items-center gap-4 mb-5">
+                            <img
+                                src={selectedDoctor.image}
+                                className="w-16 h-16 rounded-full object-cover"
+                            />
+                            <div>
+                                <h2 className="text-xl font-bold text-slate-800">
+                                    Dr. {selectedDoctor.name}
+                                </h2>
+                                <p className="text-sm text-slate-500">
+                                    {selectedDoctor.department}
+                                </p>
+                            </div>
                         </div>
+
+                        {/* Details Grid */}
+                        <div className="grid grid-cols-2 gap-4 text-sm">
+
+                            <div>
+                                <p className="text-slate-400">Email</p>
+                                <p className="font-medium">{selectedDoctor.email}</p>
+                            </div>
+
+                            <div>
+                                <p className="text-slate-400">Phone</p>
+                                <p className="font-medium">{selectedDoctor.phone}</p>
+                            </div>
+
+                            <div>
+                                <p className="text-slate-400">DOB</p>
+                                <p className="font-medium">{selectedDoctor.dob}</p>
+                            </div>
+
+                            <div>
+                                <p className="text-slate-400">Gender</p>
+                                <p className="font-medium">{selectedDoctor.gender}</p>
+                            </div>
+
+                            <div>
+                                <p className="text-slate-400">Experience</p>
+                                <p className="font-medium">{selectedDoctor.experience}</p>
+                            </div>
+
+                            <div>
+                                <p className="text-slate-400">Qualification</p>
+                                <p className="font-medium">{selectedDoctor.qualification}</p>
+                            </div>
+
+                            <div>
+                                <p className="text-slate-400">NIC</p>
+                                <p className="font-medium">{selectedDoctor.nic}</p>
+                            </div>
+
+                        </div>
+
+                        {/* Address full width */}
+                        <div className="mt-4">
+                            <p className="text-slate-400 text-sm">Address</p>
+                            <p className="font-medium">{selectedDoctor.address}</p>
+                        </div>
+
                     </div>
+
                 </div>
             )}
+
 
             {/* EDIT MODAL */}
             {editDoctor && (

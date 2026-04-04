@@ -11,13 +11,14 @@ import Appointment from "./pages/hospitals/Appointment"
 import Enqury from "./pages/hospitals/Enqury"
 import Test from "./components/testing/test"
 import Sidebar from "./components/Sidebar"
+import RepliedEnqury from "./pages/hospitals/RepliedEnqury"
 
 
 export default function App() {
 
     return (
         <div className="">
-
+            
 
             <Routes>
                 <Route element={<Sidebar />} >
@@ -32,6 +33,7 @@ export default function App() {
 
                     <Route path="/appointments" element={<Appointment />} />
                     <Route path="/enqury" element={<Enqury />} />
+                    <Route path="/RepliedEnqury" element={<RepliedEnqury />} />
 
                     <Route path="/testing" element={<Test />} />
                 </Route>

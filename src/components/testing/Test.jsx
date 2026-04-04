@@ -1,34 +1,4 @@
 
-
-export default function Test() {
-
-    return (
-        <div className="flex items-center justify-center h-screen">
-
-            <Sample/>
-
-        </div>
-    )
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function Sample() {
     return (
         <div className="h-screen flex items-center justify-center ">
@@ -36,3 +6,26 @@ function Sample() {
         </div>
     )
 }
+
+export default function Test() {
+
+    return (
+        <div className="flex items-center justify-center h-screen">
+
+            <Dashboard />
+
+        </div>
+    )
+}
+
+
+
+
+
+
+
+// ----------------------------------------------
+
+
+
+

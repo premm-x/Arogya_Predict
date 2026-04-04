@@ -10,10 +10,10 @@ export default function PatientHero() {
 
             {/* Top cards */}
             <div className="flex flex-col md:flex-row gap-4 ">
-                <div className="flex-1 bg-blue-300/40 rounded-2xl h-40 md:h-56 px-24">
-                    <p className="text-[200px] font-bold leading-none">Patient's</p>
+                <div className="flex bg-blue-300/40 rounded-2xl h-40 md:h-20 px-24">
+                    <p className="text-[80px] font-bold leading-none">Patient's</p>
                 </div>
-                <div className="flex-1  flex items-start justify-end pr-2 pt-2 rounded-2xl h-40 md:h-56">
+                <div className="flex-1  flex items-start justify-end pr-2 pt-2 rounded-2xl h-40 md:h-20">
                     <ButtonModal choice={'patienForm'}> Add Patient </ButtonModal>
                 </div>
             </div>
@@ -23,7 +23,7 @@ export default function PatientHero() {
             </div>
 
             {/* Main content */}
-            <div className=" flex-1 border-2 border-gray-300 bg-gray-100/50 rounded-2xl h-103.75">
+            <div className=" flex-1 rounded-2xl h-103.75">
                 <PatientList />
             </div>
 
@@ -37,121 +37,98 @@ const initialPatients = [
     {
         id: 1,
         name: "John Doe",
+        age: 45,
+        gender: "Male",
+        phone: "9876543210",
         problem: "Chest Pain",
         datetime: "2024-06-10 10:30 AM",
+        doctorAssigned: "Dr. Olivia White",
+        room: "A-102",
         admitted: { value: "No", date: null },
         discharged: { value: "No", date: null },
         avatar: "https://i.pravatar.cc/100?img=12",
     },
     {
         id: 2,
-        name: "Alex Michael",
-        problem: "Fracture",
-        datetime: "2024-06-11 02:15 PM",
-        admitted: { value: "Yes", date: "2024-06-11" },
-        discharged: { value: "No", date: null },
-        avatar: "https://i.pravatar.cc/100?img=13",
-    },
-    {
-        id: 3,
-        name: "Zeeshan Khan",
-        problem: "ENT Infection",
-        datetime: "2024-06-12 09:00 AM",
+        name: "John Doe",
+        age: 45,
+        gender: "Male",
+        phone: "9876543210",
+        problem: "Chest Pain",
+        datetime: "2024-06-10 10:30 AM",
+        doctorAssigned: "Dr. Olivia White",
+        room: "A-102",
         admitted: { value: "No", date: null },
         discharged: { value: "No", date: null },
         avatar: "https://i.pravatar.cc/100?img=14",
+    },
+    {
+        id: 3,
+        name: "John Doe",
+        age: 45,
+        gender: "Male",
+        phone: "9876543210",
+        problem: "Chest Pain",
+        datetime: "2024-06-10 10:30 AM",
+        doctorAssigned: "Dr. Olivia White",
+        room: "A-102",
+        admitted: { value: "No", date: null },
+        discharged: { value: "No", date: null },
+        avatar: "https://i.pravatar.cc/100?img=12",
     },
     {
         id: 4,
         name: "John Doe",
+        age: 45,
+        gender: "Male",
+        phone: "9876543210",
         problem: "Chest Pain",
         datetime: "2024-06-10 10:30 AM",
+        doctorAssigned: "Dr. Olivia White",
+        room: "A-102",
         admitted: { value: "No", date: null },
         discharged: { value: "No", date: null },
-        avatar: "https://i.pravatar.cc/100?img=12",
+        avatar: "https://i.pravatar.cc/100?img=13",
     },
     {
         id: 5,
-        name: "Alex Michael",
-        problem: "Fracture",
-        datetime: "2024-06-11 02:15 PM",
-        admitted: { value: "Yes", date: "2024-06-11" },
+        name: "John Doe",
+        age: 45,
+        gender: "Male",
+        phone: "9876543210",
+        problem: "Chest Pain",
+        datetime: "2024-06-10 10:30 AM",
+        doctorAssigned: "Dr. Olivia White",
+        room: "A-102",
+        admitted: { value: "No", date: null },
         discharged: { value: "No", date: null },
-        avatar: "https://i.pravatar.cc/100?img=13",
+        avatar: "https://i.pravatar.cc/100?img=14",
     },
     {
         id: 6,
-        name: "Zeeshan Khan",
-        problem: "ENT Infection",
-        datetime: "2024-06-12 09:00 AM",
-        admitted: { value: "No", date: null },
-        discharged: { value: "No", date: null },
-        avatar: "https://i.pravatar.cc/100?img=14",
-    },
-    {
-        id: 7,
         name: "John Doe",
+        age: 45,
+        gender: "Male",
+        phone: "9876543210",
         problem: "Chest Pain",
         datetime: "2024-06-10 10:30 AM",
+        doctorAssigned: "Dr. Olivia White",
+        room: "A-102",
         admitted: { value: "No", date: null },
-        discharged: { value: "No", date: null },
-        avatar: "https://i.pravatar.cc/100?img=12",
-    },
-    {
-        id: 8,
-        name: "Alex Michael",
-        problem: "Fracture",
-        datetime: "2024-06-11 02:15 PM",
-        admitted: { value: "Yes", date: "2024-06-11" },
         discharged: { value: "No", date: null },
         avatar: "https://i.pravatar.cc/100?img=13",
-    },
-    {
-        id: 9,
-        name: "Zeeshan Khan",
-        problem: "ENT Infection",
-        datetime: "2024-06-12 09:00 AM",
-        admitted: { value: "No", date: null },
-        discharged: { value: "No", date: null },
-        avatar: "https://i.pravatar.cc/100?img=14",
-    },
-    {
-        id: 10,
-        name: "John Doe",
-        problem: "Chest Pain",
-        datetime: "2024-06-10 10:30 AM",
-        admitted: { value: "No", date: null },
-        discharged: { value: "No", date: null },
-        avatar: "https://i.pravatar.cc/100?img=12",
-    },
-    {
-        id: 11,
-        name: "Alex Michael",
-        problem: "Fracture",
-        datetime: "2024-06-11 02:15 PM",
-        admitted: { value: "Yes", date: "2024-06-11" },
-        discharged: { value: "No", date: null },
-        avatar: "https://i.pravatar.cc/100?img=13",
-    },
-    {
-        id: 12,
-        name: "Zeeshan Khan",
-        problem: "ENT Infection",
-        datetime: "2024-06-12 09:00 AM",
-        admitted: { value: "No", date: null },
-        discharged: { value: "No", date: null },
-        avatar: "https://i.pravatar.cc/100?img=14",
     },
 ];
 
 export function PatientList() {
     const [patients, setPatients] = useState(initialPatients);
     const [selectedPatient, setSelectedPatient] = useState(null);
+    const [view, setView] = useState(false);
     const [modalType, setModalType] = useState(null); // admitted | discharged
     const [dateValue, setDateValue] = useState("");
     const [page, setPage] = useState(1);
 
-    const pageSize = 10;
+    const pageSize = 5;
     const start = (page - 1) * pageSize;
     const paginatedPatients = patients.slice(start, start + pageSize);
 
@@ -295,13 +272,21 @@ export function PatientList() {
 
                     {/* VIEW */}
                     <div
-                        onClick={() => alert(JSON.stringify(p, null, 2))}
+                        onClick={() => { setSelectedPatient(p); setView(true) }}
                         className="text-blue-600 cursor-pointer text-xs"
                     >
                         View
                     </div>
                 </div>
             ))}
+
+            {/*  modal render */}
+            {selectedPatient && view && (
+                <PatientModal
+                    patient={selectedPatient}
+                    onClose={() => { setSelectedPatient(null); setView(false) }}
+                />
+            )}
 
             {/* PAGINATION */}
             <div className="flex items-center justify-between gap-2 mt-4">
@@ -328,7 +313,7 @@ export function PatientList() {
             </div>
 
             {/* DATE MODAL */}
-            {selectedPatient && (
+            {selectedPatient && !view && (
                 <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
                     <div className="bg-white p-5 rounded-lg w-80">
                         <h3 className="font-semibold mb-3 capitalize">
@@ -365,3 +350,118 @@ export function PatientList() {
     );
 }
 
+
+
+
+
+
+//---------
+
+import { X } from "lucide-react";
+
+export function PatientModal({ patient, onClose }) {
+    if (!patient) return null;
+
+    return (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+
+            {/* Modal */}
+            <div className="bg-white w-full max-w-lg rounded-2xl shadow-xl p-6 relative">
+
+                {/* Close Button */}
+                <button
+                    onClick={onClose}
+                    className="absolute top-4 right-4 text-slate-400 hover:text-red-500"
+                >
+                    <X size={20} />
+                </button>
+
+                {/* Header */}
+                <div className="flex items-center gap-4 mb-5">
+                    <img
+                        src={patient.avatar}
+                        className="w-16 h-16 rounded-full object-cover"
+                    />
+                    <div>
+                        <h2 className="text-xl font-bold text-slate-800">
+                            {patient.name}
+                        </h2>
+                        <p className="text-sm text-slate-500">
+                            {patient.problem}
+                        </p>
+                    </div>
+                </div>
+
+                {/* Info Grid */}
+                <div className="grid grid-cols-2 gap-4 text-sm">
+
+                    <div>
+                        <p className="text-slate-400">Age</p>
+                        <p className="font-medium">{patient.age}</p>
+                    </div>
+
+                    <div>
+                        <p className="text-slate-400">Gender</p>
+                        <p className="font-medium">{patient.gender}</p>
+                    </div>
+
+                    <div>
+                        <p className="text-slate-400">Phone</p>
+                        <p className="font-medium">{patient.phone}</p>
+                    </div>
+
+                    <div>
+                        <p className="text-slate-400">Appointment</p>
+                        <p className="font-medium">{patient.datetime}</p>
+                    </div>
+
+                    <div>
+                        <p className="text-slate-400">Doctor</p>
+                        <p className="font-medium">{patient.doctorAssigned}</p>
+                    </div>
+
+                    <div>
+                        <p className="text-slate-400">Room</p>
+                        <p className="font-medium">{patient.room}</p>
+                    </div>
+
+                </div>
+
+                {/* Status Section */}
+                <div className="mt-5 space-y-2">
+
+                    <div className="flex justify-between items-center bg-slate-100 p-3 rounded-lg">
+                        <span className="text-sm text-slate-600">Admitted</span>
+                        <span className={`text-sm font-semibold ${patient.admitted.value === "Yes" ? "text-green-600" : "text-red-500"
+                            }`}>
+                            {patient.admitted.value}
+                        </span>
+                    </div>
+
+                    {patient.admitted.date && (
+                        <p className="text-xs text-slate-400">
+                            Date: {patient.admitted.date}
+                        </p>
+                    )}
+
+                    <div className="flex justify-between items-center bg-slate-100 p-3 rounded-lg">
+                        <span className="text-sm text-slate-600">Discharged</span>
+                        <span className={`text-sm font-semibold ${patient.discharged.value === "Yes" ? "text-green-600" : "text-red-500"
+                            }`}>
+                            {patient.discharged.value}
+                        </span>
+                    </div>
+
+                    {patient.discharged.date && (
+                        <p className="text-xs text-slate-400">
+                            Date: {patient.discharged.date}
+                        </p>
+                    )}
+
+                </div>
+
+            </div>
+
+        </div>
+    );
+}

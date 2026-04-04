@@ -2,31 +2,39 @@ import DrawerWithSides from "@/components/DrawerWithSides";
 import { Bell, LogOut } from "lucide-react";
 import { Outlet } from "react-router-dom";
 
+import { useState } from "react";
+import { Sidebar2 } from "@/components/DrawerWithSides";
+import Topbar from "./ui/Topbar";
+
 
 export default function Sidebar() {
 
+    const [sidebarOpen, setSidebarOpen] = useState(true);
+    const [activeNav, setActiveNav] = useState("generate");
+
     return (
-        <div className="">
+        <div className="flex">
 
-            <div className="flex relative">
+            {/* Sidebar */}
+            <div className="fixed left-0 top-0 h-screen w-64">
+                {/* <DrawerWithSides /> */}
 
-                <div className="h-screen bg-gray-300/40 px-4 py-5 flex flex-col justify-between gap-5 sticky top-0 rounded-xl rounded-tr-lg">
-                    <div className="flex flex-col gap-5">
-                        <DrawerWithSides />
-                        <Bell />
-                    </div>
-                    <div className="flex flex-col gap-5 mb-4">
-                        <LogOut />
-                    </div>
-                    
-                </div>
-
-                <main className="p-4 pb-0 flex-1">
-                    <Outlet />
-                </main>
-
+                <Sidebar2
+                    sidebarOpen={sidebarOpen}
+                    setSidebarOpen={setSidebarOpen}
+                    activeNav={activeNav}
+                    setActiveNav={setActiveNav}
+                />
             </div>
+
+            {/* Main Content */}
+            <main className={`${sidebarOpen ? "ml-64" : "ml-16"} relative flex-1 transition-all duration-300`}>
+                <Topbar/>
+                <Outlet />
+            </main>
 
         </div>
     )
 }
+
+

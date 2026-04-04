@@ -5,7 +5,7 @@ import PatientHero from "./PatientHero";
 export default function PatientPage() {
 
     return (
-        <div className="">
+        <div className="p-4">
             <PatientHero />
         </div>
     )

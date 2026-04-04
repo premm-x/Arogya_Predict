@@ -1,23 +1,24 @@
 import DrawerWithSides from "@/components/DrawerWithSides";
 import { useState, useMemo } from "react";
+import RepliedEnqury from "./RepliedEnqury";
 
 
 export default function Enqury() {
 
     return (
-        <div className="">
+        <div className="p-4">
 
             <section className=" flex flex-col gap-4 ">
 
                 {/* Top cards */}
                 <div className="flex flex-col md:flex-row gap-4">
                     <div className="flex-1 flex items-center justify-center py-2 bg-violet-200/30 rounded-2xl">
-                        <p className="text-[160px] font-bold leading-none">Enqury Message's</p>
+                        <p className="text-[100px] font-bold leading-none">Enqury Message's</p>
                     </div>
                 </div>
 
                 <div className="flex items-center justify-center my-5">
-                    <hr class="w-[90%] border-gray-300" />
+                    <hr className="w-[90%] border-gray-300" />
                 </div>
 
                 {/* Main content */}
@@ -104,6 +105,7 @@ export function MessageList() {
     const [selected, setSelected] = useState(null);
     const [filter, setFilter] = useState("all");
     const [customDate, setCustomDate] = useState("");
+    const [repliedUsers, setRepliedUsers] = useState([]); // NEW
 
     /* ---------- FILTER + SORT ---------- */
     const filteredUsers = useMemo(() => {
@@ -138,18 +140,48 @@ export function MessageList() {
         );
     };
 
+    // const handleSendReply = (id) => {
+    //     setUsers((prev) =>
+    //         prev.map((u) =>
+    //             u.id === id && u.replyDraft.trim()
+    //                 ? { ...u, reply: u.replyDraft, isReplied: true }
+    //                 : u
+    //         )
+    //     );
+    // };
+
+
+
+    const formatDateLabel = (date) => {
+        return new Date(date).toLocaleDateString();
+    };
+
+
+    // ✅ SEND + MOVE + DELETE
     const handleSendReply = (id) => {
-        setUsers((prev) =>
-            prev.map((u) =>
-                u.id === id && u.replyDraft.trim()
-                    ? { ...u, reply: u.replyDraft, isReplied: true }
-                    : u
-            )
-        );
+        setUsers((prevUsers) => {
+            const userToMove = prevUsers.find((u) => u.id === id);
+            if (!userToMove) return prevUsers;
+
+            const updatedUser = {
+                ...userToMove,
+                isReplied: true,
+                replyMessage: userToMove.replyDraft, // ✅ store reply
+                repliedAt: new Date(),
+            };
+
+            setRepliedUsers((prev) => {
+                const alreadyExists = prev.some((u) => u.id === id);
+                if (alreadyExists) return prev;
+                return [...prev, updatedUser];
+            });
+
+            return prevUsers.filter((u) => u.id !== id);
+        });
     };
 
     return (
-        <div className="p-6">
+        <div className="p-6 relative">
             {/* FILTER */}
             <div className="flex gap-4 mb-4">
                 <select
@@ -173,70 +205,20 @@ export function MessageList() {
                 )}
             </div>
 
-            {/* HEADER */}
-            <div className="grid grid-cols-10 gap-4 font-semibold border-b pb-2">
-                <div>Date</div>
-                <div>Status</div>
-                <div>Name</div>
-                <div>Email</div>
-                <div>Phone</div>
-                <div className="col-span-2">Message</div>
-                <div>Reply</div>
-                <div></div>
-                <div>View</div>
-            </div>
 
-            {/* LIST */}
-            {filteredUsers.map((u) => (
-                <div
-                    key={u.id}
-                    className="grid grid-cols-10 gap-4 py-4 border-b items-start"
-                >
-                    <div className="text-sm text-gray-600">
-                        {formatDateLabel(u.createdAt)}
-                    </div>
+            <UserTable
+                filteredUsers={filteredUsers}
+                setUsers={setUsers}
+                formatDateLabel={formatDateLabel}
+                handleReplyChange={handleReplyChange}
+                handleSendReply={handleSendReply}
+                setSelected={setSelected}
+            />
 
-                    <div>
-                        {u.isReplied ? (
-                            <span className="text-green-600 text-sm">Replied</span>
-                        ) : (
-                            <span className="text-gray-400 text-sm">Pending</span>
-                        )}
-                    </div>
-
-                    <div>{u.name}</div>
-                    <div>{u.email}</div>
-                    <div>{u.phone}</div>
-
-                    <div className="col-span-2">
-                        <div className="border p-2 max-h-20 overflow-y-auto text-sm">
-                            {u.message}
-                        </div>
-                    </div>
-
-                    <textarea
-                        disabled={u.isReplied}
-                        value={u.replyDraft}
-                        onChange={(e) => handleReplyChange(u.id, e.target.value)}
-                        className="border p-2 h-20 resize-none disabled:bg-gray-100"
-                    />
-
-                    <button
-                        disabled={u.isReplied}
-                        onClick={() => handleSendReply(u.id)}
-                        className="bg-green-600 text-white px-3 py-2 rounded disabled:bg-gray-400"
-                    >
-                        Send
-                    </button>
-
-                    <button
-                        onClick={() => setSelected(u)}
-                        className="text-blue-600 underline"
-                    >
-                        View
-                    </button>
-                </div>
-            ))}
+            <RepliedEnqury
+                users={repliedUsers}
+                formatDateLabel={formatDateLabel}
+            />
 
             {selected && (
                 <Modal data={selected} onClose={() => setSelected(null)} />
@@ -284,3 +266,230 @@ function Modal({ data, onClose }) {
     );
 }
 
+//-----------------
+
+export function UserTable({
+    filteredUsers,
+    setUsers,
+    formatDateLabel,
+    handleReplyChange,
+    handleSendReply,
+    setSelected,
+}) {
+    const [selectedIds, setSelectedIds] = useState([]);
+
+    // Toggle single checkbox
+    const toggleSelect = (id) => {
+        setSelectedIds((prev) =>
+            prev.includes(id)
+                ? prev.filter((i) => i !== id)
+                : [...prev, id]
+        );
+    };
+
+    // Select all
+    const toggleSelectAll = () => {
+        if (selectedIds.length === filteredUsers.length) {
+            setSelectedIds([]);
+        } else {
+            setSelectedIds(filteredUsers.map((u) => u.id));
+        }
+    };
+
+    // Delete selected
+    const handleDeleteSelected = () => {
+        const updated = filteredUsers.filter(
+            (u) => !selectedIds.includes(u.id)
+        );
+
+        setUsers(updated);
+        setSelectedIds([]);
+    };
+
+    return (
+        <div className=" rounded-xl  overflow-hidden">
+
+            {/* TOP ACTION BAR */}
+            <div className="flex justify-end items-center absolute top-2 right-10 p-4 border-b">
+
+                <button
+                    onClick={handleDeleteSelected}
+                    disabled={selectedIds.length === 0}
+                    className="bg-red-600 text-white px-4 py-2 rounded disabled:bg-gray-400"
+                >
+                    Delete Selected ({selectedIds.length})
+                </button>
+            </div>
+
+            <table className="w-full text-sm text-left">
+
+                {/* HEADER */}
+                <thead className="bg-gray-100 text-gray-700">
+                    <tr>
+                        <th className="p-3">
+                            <input
+                                type="checkbox"
+                                checked={
+                                    selectedIds.length === filteredUsers.length &&
+                                    filteredUsers.length > 0
+                                }
+                                onChange={toggleSelectAll}
+                            />
+                        </th>
+                        <th className="p-3">#</th>
+                        <th className="p-3">Date</th>
+                        <th className="p-3">Status</th>
+                        <th className="p-3">Name</th>
+                        <th className="p-3">Email</th>
+                        <th className="p-3">Phone</th>
+                        <th className="p-3">Message</th>
+                        <th className="p-3">Reply</th>
+                        <th className="p-3">Action</th>
+                        <th className="p-3">View</th>
+                    </tr>
+                </thead>
+
+                {/* BODY */}
+                <tbody>
+                    {filteredUsers.map((u, index) => (
+                        <tr key={u.id} className="border-t align-top hover:bg-gray-50">
+
+                            {/* CHECKBOX */}
+                            <td className="p-3">
+                                <input
+                                    type="checkbox"
+                                    checked={selectedIds.includes(u.id)}
+                                    onChange={() => toggleSelect(u.id)}
+                                />
+                            </td>
+
+                            <td className="p-3">{index + 1}</td>
+
+                            <td className="p-3 text-gray-600">
+                                {formatDateLabel(u.createdAt)}
+                            </td>
+
+                            <td className="p-3">
+                                {u.isReplied ? (
+                                    <span className="text-green-600 font-medium">
+                                        Replied
+                                    </span>
+                                ) : (
+                                    <span className="text-gray-400">
+                                        Pending
+                                    </span>
+                                )}
+                            </td>
+
+                            <td className="p-3">{u.name}</td>
+                            <td className="p-3">{u.email}</td>
+                            <td className="p-3">{u.phone}</td>
+
+                            <td className="p-3 max-w-xs">
+                                <div className="border p-2 rounded max-h-20 overflow-y-auto">
+                                    {u.message}
+                                </div>
+                            </td>
+
+                            <td className="p-3">
+                                <textarea
+                                    disabled={u.isReplied}
+                                    value={u.replyDraft}
+                                    onChange={(e) =>
+                                        handleReplyChange(u.id, e.target.value)
+                                    }
+                                    className="border p-2 w-full h-20 rounded resize-none disabled:bg-gray-100"
+                                />
+                            </td>
+
+                            <td className="p-3">
+                                <button
+                                    disabled={u.isReplied}
+                                    onClick={() => handleSendReply(u.id)}
+                                    className="bg-green-600 text-white px-3 py-2 rounded disabled:bg-gray-400"
+                                >
+                                    Send
+                                </button>
+                            </td>
+
+                            <td className="p-3">
+                                <button
+                                    onClick={() => setSelected(u)}
+                                    className="text-blue-600 hover:underline"
+                                >
+                                    View
+                                </button>
+                            </td>
+
+                        </tr>
+                    ))}
+                </tbody>
+
+            </table>
+        </div>
+    );
+}
+
+
+//------------------
+
+export function RepliedTable({ users, formatDateLabel }) {
+
+
+    return (
+        <div className="bg-white rounded-xl shadow overflow-hidden mt-8">
+
+            <div className="p-4 border-b font-semibold">
+                Replied Queries
+            </div>
+
+            <table className="w-full text-sm text-left">
+
+                <thead className="bg-gray-100 text-gray-700">
+                    <tr>
+                        <th className="p-3">#</th>
+                        <th className="p-3">Name</th>
+                        <th className="p-3">Email</th>
+                        <th className="p-3">Phone</th>
+                        <th className="p-3">Message</th>
+                        <th className="p-3">Reply</th> 
+                        <th className="p-3">Replied At</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {users.map((u, index) => (
+                        <tr key={u.id} className="border-t hover:bg-gray-50">
+
+                            <td className="p-3">{index + 1}</td>
+
+                            <td className="p-3">{u.name}</td>
+
+                            <td className="p-3">{u.email}</td>
+
+                            <td className="p-3">{u.phone}</td> {/* ✅ added */}
+
+                            <td className="p-3 max-w-xs">
+                                <div className="border p-2 rounded max-h-20 overflow-y-auto">
+                                    {u.message}
+                                </div>
+                            </td>
+
+                            <td className="p-3 max-w-xs"> {/* ✅ reply message */}
+                                <div className="border p-2 rounded max-h-20 overflow-y-auto bg-green-50">
+                                    {u.replyMessage || "—"}
+                                </div>
+                            </td>
+
+                            <td className="p-3 text-gray-600">
+                                {formatDateLabel(u.repliedAt)}
+                            </td>
+
+                        </tr>
+                    ))}
+                </tbody>
+
+            </table>
+        </div>
+    );
+}
